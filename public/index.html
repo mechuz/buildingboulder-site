@@ -46,7 +46,9 @@
     var cfg = window.BB_CONFIG || {};
     if (!cfg.endpoint) return Promise.reject(new Error('no endpoint'));
     var body = new URLSearchParams();
-    Object.keys(fields).forEach(function (k) { body.append(k, fields[k] == null ? '' : String(fields[k])); });
+    // every post carries the same keys, so the CRM's saved field list always matches
+    var KEYS = ['form', 'source', 'name', 'company', 'role', 'email', 'phone', 'message', 'borough', 'neighborhood', 'place', 'type', 'stories', 'units', 'due', 'drawings', 'estimate', 'summary'];
+    KEYS.forEach(function (k) { body.append(k, fields[k] == null ? '' : String(fields[k])); });
     body.append('page', location.href.split('#')[0]);
     return fetch(cfg.endpoint, { method: 'POST', mode: 'no-cors', body: body });
   };
