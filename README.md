@@ -4,5 +4,5 @@ The Boulder Builders website, published at **www.buildingboulder.com** with GitH
 
 - `public/` is the site exactly as served (`index.html` at its root). `public/CNAME` sets the custom domain.
 - Every push to `main` deploys through `.github/workflows/deploy.yml`.
-- The page carries `noindex` until Boulder Builders approves the launch.
+- Public and indexed since November 24, 2026. `/leads/` is the team lead book behind a login and stays noindex and disallowed.
 - Forms post to Boulder Builders' own CRM.
