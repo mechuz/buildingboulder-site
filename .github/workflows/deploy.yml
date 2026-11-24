@@ -1,0 +1,34 @@
+# Publishes www.buildingboulder.com on GitHub Pages every time this repo changes (same setup as mosesagentic.com).
+name: Build and deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      # give GitHub a moment to list the uploaded artifact (the mosesagentic.com deploy needed this on November 22, 2026)
+      - name: Wait for the upload to be listed
+        run: sleep 45
+      - id: deployment
+        uses: actions/deploy-pages@v4
